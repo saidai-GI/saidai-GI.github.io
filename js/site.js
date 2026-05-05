@@ -152,9 +152,10 @@
     for (const a of articles) {
       const tagHtml = tagsHtml(a.tags);
       const prev = escapeHtml(previewText(a.body, 3)).replace(/\n/g, "<br/>");
-      html += `<article class="card">
+      const href = `#/board/${encodeURIComponent(a.id)}`;
+      html += `<article class="card card-link" data-href="${href}" tabindex="0" role="link" aria-label="${escapeHtml(a.title)} を開く">
         <div class="card-meta">
-          <h2 class="card-title"><a href="#/board/${encodeURIComponent(a.id)}">${escapeHtml(a.title)}</a></h2>
+          <h2 class="card-title">${escapeHtml(a.title)}</h2>
           <span class="card-date">${escapeHtml(a.published)}</span>
         </div>
         <div class="tags">${tagHtml}</div>
@@ -184,9 +185,10 @@
     for (const m of manuals) {
       const tagHtml = tagsHtml(m.tags);
       const pv = escapeHtml(previewText(manualPreview(m), 3)).replace(/\n/g, "<br/>");
-      html += `<article class="card manual-card">
+      const href = `#/manual/${encodeURIComponent(m.id)}`;
+      html += `<article class="card manual-card card-link" data-href="${href}" tabindex="0" role="link" aria-label="${escapeHtml(m.eventName)} を開く">
         <div class="card-meta">
-          <h2 class="card-title"><a href="#/manual/${encodeURIComponent(m.id)}">${escapeHtml(m.eventName)}</a></h2>
+          <h2 class="card-title">${escapeHtml(m.eventName)}</h2>
           <span class="card-date">${escapeHtml(m.eventDate)}</span>
         </div>
         <div class="tags">${tagHtml}</div>
@@ -280,6 +282,21 @@
 
   window.addEventListener("hashchange", render);
   document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", (ev) => {
+      const el = ev.target.closest?.(".card-link");
+      if (!el) return;
+      const href = el.getAttribute("data-href");
+      if (!href) return;
+      location.hash = href.startsWith("#") ? href : "#" + href;
+    });
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key !== "Enter") return;
+      const el = ev.target.closest?.(".card-link");
+      if (!el) return;
+      const href = el.getAttribute("data-href");
+      if (!href) return;
+      location.hash = href.startsWith("#") ? href : "#" + href;
+    });
     $("#menuToggle")?.addEventListener("click", () => {
       const menu = $("#mobileMenu");
       setMobileMenu(menu.hidden);
