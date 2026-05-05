@@ -1,1 +1,33 @@
-<!DOCTYPE html> <html lang="ja"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>My First GitHub Pages</title> </head> <body> <h1>Hello, GitHub Pages!</h1> <p>私の最初のWebサイトです。</p> </body> </html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>委員会共有サイト</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#/">委員会共有</a>
+      <nav class="nav-desktop" aria-label="メイン">
+        <a href="#/" data-nav-home>ホーム</a>
+        <a href="#/board" data-nav-board>掲示板</a>
+        <a href="#/manual" data-nav-manual>マニュアル</a>
+      </nav>
+      <div class="nav-mobile">
+        <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu">メニュー</button>
+        <div class="mobile-dropdown" id="mobileMenu" hidden>
+          <a href="#/" data-nav-home>ホーム</a>
+          <a href="#/board" data-nav-board>掲示板</a>
+          <a href="#/manual" data-nav-manual>マニュアル</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" class="main"></main>
+
+  <script src="js/site.js" defer></script>
+</body>
+</html>
